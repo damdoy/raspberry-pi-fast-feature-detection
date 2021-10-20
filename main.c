@@ -179,14 +179,12 @@ void main(void){
         img.img = buffer->data;
 
         const uint TOTAL_LEVELS_PYRAMID = 3;
-        //threshold for
         const float THRESHOLD_DETECTION = 0.07f;
         const uint PYRAMID_BLUR = 1; //means box blur filter of size (PYRAMID_BLUR*2+1)
         const uint MAX_POINTS_PER_PYRAMID = 64;
 
         image_grayscale_t img_gray[TOTAL_LEVELS_PYRAMID];
         image_grayscale_t img_gray_blurred[TOTAL_LEVELS_PYRAMID];
-
 
         image_convert_to_grayscale(&img, &img_gray[0]); //13ms
 
@@ -219,7 +217,6 @@ void main(void){
 
         // image_draw_grayscale(&img_gray[0], fbp, screen_size_x);
 
-
         image_draw(&img, fbp, screen_size_x); //11ms
 
         // save to raw file
@@ -234,7 +231,6 @@ void main(void){
         //     }
         // }
 
-        // printf("profiling time: %f\n\r", end_profiling_time-start_profiling_time);
 
         //Send back the buffer to the port to be filled with an image again
         mmal_port_send_buffer(video_port, buffer);
@@ -251,6 +247,9 @@ void main(void){
             time_since_report = 0;
             count_frames = 0;
         }
+
+
+        // printf("profiling time: %f\n\r", end_profiling_time-start_profiling_time);
 
         //destroy buffers
         for (size_t i = 0; i < TOTAL_LEVELS_PYRAMID; i++){
